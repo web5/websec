@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSS</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery-3.3.1.min.js'></script>
+  </head>
+  <body>
+     
+        <div>
+            <label>输入内容</label>
+            <input type="text" id="cmd_input" name="cmd_input" /><button id="cmd_input_sumbit">提交</button>
+            <p id="cmd_input_output"></p>
+        </div>
+        <script>
+           $('#cmd_input_sumbit').click(function() {
+                $.ajax({
+                    // credentials: 'same-origin', 
+                method: 'post',
+                url: '/injection/cmdSumbit',
+                data: {repo: $('#cmd_input').val()},
+                success: function (res) {
+                    $('#cmd_input_output').html(res)
+                }
+            })
+           })
+        
+        </script>
+  </body>
+</html>

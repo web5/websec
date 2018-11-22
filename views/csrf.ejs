@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSS</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery-3.3.1.min.js'></script>
+  </head>
+  <body>
+     
+        <div>
+            <label>输入内容</label>
+            <input type="text" id="xss_input" name="xss_input" /><button id="xss_input_sumbit">提交</button>
+            <p id="xss_input_output"></p>
+        </div>
+        <script>
+           $('#xss_input_sumbit').click(function() {
+            var token = null
+               if(document.querySelector('meta[name="csrf-token"]')) {
+                token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+               }
+            
+                  $.ajax({
+                    // credentials: 'same-origin', 
+                method: 'post',
+                headers: {
+                    'CSRF-Token': token // <-- is the csrf token as a header
+                },
+                url: '/csrf/process',
+                data: {username: $('#xss_input').val()},
+                success: function (params) {
+                    $('#xss_input_output').html(params.username)
+                }
+            })
+           })
+        
+        </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSS</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery-3.3.1.min.js'></script>
+  </head>
+  <body>
+        <!-- <select>
+            <script>
+                document.write(''
+                    + '<option value=1>'
+                    +     location.href.substring(location.href.indexOf('default=') + 8)
+                    + '</option>'
+                );
+                document.write('<option value=2>English</option>');
+            </script>
+        </select> -->
+        <div id="xss_html">
+           
+        </div>
+        <div>
+            <label>输入内容</label>
+            <input type="text" id="xss_input" name="xss_input" /><button id="xss_input_sumbit">提交</button>
+            <p id="xss_input_output"></p>
+        </div>
+        <script>
+            // eval('0 ? 0 : ' + location.href.substring(location.href.indexOf('default=') + 8))
+            // new Function( location.href.substring(location.href.indexOf('default=') + 8) )()
+           $('#xss_html').html(location.href.substring(location.href.indexOf('default=') + 8))
+           $('#xss_input_sumbit').click(function() {
+                  $.ajax({
+                method: 'post',
+                url: '/xss/input',
+                data: {username: $('#xss_input').val()},
+                success: function (params) {
+                    $('#xss_input_output').html(params.username)
+                }
+            })
+           })
+        
+        </script>
+  </body>
+</html>
