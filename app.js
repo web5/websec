@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const xssRouter = require('./routes/xss');
 const csrfRouter = require('./routes/csrf');
 const injectionRouter = require('./routes/injection');
+const validatorRouter = require('./routes/validator');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/users', usersRouter);
 app.use('/xss', xssRouter);
 app.use('/csrf', csrfRouter);
 app.use('/injection', injectionRouter);
+app.use('/validator', validatorRouter);
 
 
 // error handler
