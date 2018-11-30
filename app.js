@@ -1,16 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const helmet = require('helmet');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var xssRouter = require('./routes/xss');
-var csrfRouter = require('./routes/csrf');
-var injectionRouter = require('./routes/injection');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const xssRouter = require('./routes/xss');
+const csrfRouter = require('./routes/csrf');
+const injectionRouter = require('./routes/injection');
 
-var app = express();
+const app = express();
+
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
