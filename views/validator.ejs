@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSS</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery-3.3.1.min.js'></script>
+  </head>
+  <body>
+      
+        <div>
+            <label>输入内容</label>
+            <input type="text" id="username" name="username" />
+        </div>
+        <div>
+            <label>密码</label>
+            <input type="text" id="password" name="passowrd" />
+            
+        </div>
+        <div>
+            <button id="xss_input_sumbit">提交</button>
+        </div>
+        <script>
+           $('#xss_input_sumbit').click(function() {
+                  $.ajax({
+                method: 'post',
+                url: '/validator/sumbit',
+                data: {username: $('#username').val(), password: $('#password').val()},
+                success: function (res) {
+                    console.log(res)
+                }
+            })
+           })
+        
+        </script>
+  </body>
+</html>
